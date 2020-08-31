@@ -1,0 +1,329 @@
+@charset "UTF-8";
+html {
+  font-size: 100%;
+}
+
+/*16px*/
+body {
+  background-color: #f4f4f4;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica, 'Segoe UI', Roboto, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-weight: 400;
+  line-height: 1.65;
+  color: #333;
+}
+
+p {
+  margin-bottom: 1.15rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 3.052em;
+}
+
+h2 {
+  font-size: 2.441em;
+}
+
+h3 {
+  font-size: 1.953em;
+}
+
+h4 {
+  font-size: 1.563em;
+}
+
+h5 {
+  font-size: 1.25em;
+}
+
+small,
+.text_small {
+  font-size: 0.8em;
+}
+
+.btn {
+  border-radius: 200px;
+  padding: 0.375em 1em;
+}
+
+.btn-prime {
+  background: #d6d6d6;
+}
+
+.btn-second {
+  border: 1px solid #d6d6d6;
+}
+
+.burner-header {
+  padding: 1.25em;
+}
+
+.burner-header .burner-header--date-time {
+  text-align: right;
+  margin-bottom: 1em;
+}
+
+.burner-header .burner-header--chef {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.burner-header .burner-header--update {
+  display: none;
+  max-width: 370px;
+  margin: 0 auto;
+}
+
+.burner-header.editing .burner-header--chef {
+  display: none;
+}
+
+.burner-header.editing .burner-header--update {
+  display: block;
+}
+
+.burner {
+  background: #ffffff;
+  border: 1px solid #f4f4f4;
+  -webkit-box-shadow: 0px 2px 8px #d6d6d6;
+          box-shadow: 0px 2px 8px #d6d6d6;
+  border-radius: 4px;
+  min-height: 820px;
+  margin-bottom: 2.5em;
+}
+
+.burner--header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1.25em 0.9375em;
+}
+
+.burner--header .button-container {
+  margin: 0 0 0 auto;
+}
+
+.burner--list {
+  padding: 0 0.9375em;
+}
+
+.primary-burner {
+  border-right: 2px solid #f4f4f4;
+}
+
+.urgent-back-burner {
+  border-bottom: 2px solid #f4f4f4;
+  min-height: calc(820px / 2);
+}
+
+.input-group {
+  background: #ffffff;
+  border: 1px solid #f4f4f4;
+  border-radius: 4px;
+  padding: 0.9375em;
+  margin-bottom: 1.875em;
+}
+
+.input-group--control {
+  width: 100%;
+  padding: 2px 8px;
+  border: none;
+  margin-bottom: 0.625em;
+  font-size: 1.25em;
+}
+
+.input-group--control.bold {
+  font-weight: 600;
+}
+
+.dishes-list li:last-child .dish {
+  margin-bottom: 0.75em;
+}
+
+.dish {
+  margin-bottom: 2em;
+}
+
+.dish .dish--title {
+  margin-bottom: 0.5em;
+  position: relative;
+}
+
+.dish .dish--title label {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+
+.dish .dish--title .destroy {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  font-size: 30px;
+  color: #d6d6d6;
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  background-color: #ffffff;
+  border: none;
+  outline: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.dish .dish--title .destroy:hover {
+  color: black;
+}
+
+.dish .dish--title .destroy::after {
+  content: '×';
+}
+
+.dish .dish--title:hover .destroy {
+  opacity: 1;
+}
+
+.dish .dish--edit {
+  display: none;
+}
+
+.dish.dish--editing .dish--title {
+  display: none;
+}
+
+.dish.dish--editing .dish--edit {
+  display: block;
+}
+
+.dish .dish--body .dish--ingredient-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient {
+  position: relative;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient .view {
+  padding-left: 0.85em;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient .view .toggle {
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: 0 0 0 auto;
+  border: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient .view .toggle + label {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30' fill='none'%3E%3Crect x='3.5' y='3.5' width='23' height='23' rx='3.5' stroke='%23D6D6D6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: top left;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient .view .toggle:checked + label {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30' fill='none'%3E%3Crect x='3.5' y='3.5' width='23' height='23' rx='3.5' fill='%235DC2AF' stroke='%235DC2AF'/%3E%3Cpath d='M9 17L13.5 21L22 9' stroke='white' stroke-width='3'/%3E%3C/svg%3E");
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient .view label {
+  padding: 3px 12px 3px 36px;
+  display: block;
+  line-height: 1.5;
+  -webkit-transition: color 0.150ms ease;
+  transition: color 0.150ms ease;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient .view .destroy {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  font-size: 30px;
+  color: #d6d6d6;
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  background-color: #ffffff;
+  border: none;
+  outline: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient .view .destroy:hover {
+  color: black;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient .view .destroy::after {
+  content: '×';
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient .edit {
+  display: none;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient.completed label {
+  color: #d6d6d6;
+  text-decoration: line-through;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient.editing {
+  padding-left: 0.85em;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient.editing .view {
+  display: none;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient.editing .edit {
+  display: block;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient:hover .destroy {
+  opacity: 1;
+}
+
+.dish .dish--body .dish--add-ingredient {
+  padding-left: 0.85em;
+}
+/*# sourceMappingURL=main.css.map */

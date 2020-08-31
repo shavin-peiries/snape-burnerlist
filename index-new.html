@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Stimulus • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+	</head>
+	<body>
+		<section class="todoapp" data-controller="dishes">
+
+			<header class="header">
+				<form data-action="dishes#createDish">
+					<input class="" data-target="dishes.newDish" placeholder="Name this dish...">
+				</form>
+      </header>
+
+      <ul class="dishes-list" data-target="dishes.dishList">
+        <template data-target="dishes.dishTemplate">
+          <li data-controller="dish">
+            <div class="view">
+              <label data-target="dish.name"></label>
+
+              <ul data-target="dish.ingredientList">
+                <template data-target="dish.ingredientTemplate">
+                  <li data-controller="ingredient" data-action="ingredient.change->dish#ingredientChange">
+                    <div class="view">
+                      <input class="toggle" data-action="ingredient#toggle" data-target="ingredient.toggle" type="checkbox">
+                      <label data-target="ingredient.label"></label>
+                    </div>
+                  </li>
+                </template>
+              </ul>
+
+              <form data-action="dish#createIngredient">
+                <input type="text" data-target="dish.newIngredient" placeholder="Add an ingredient">
+              </form>
+            </div>
+          </li>
+        </template>
+      </ul>
+
+      <button class="button" data-action="click->dishes#logList">Issa list</button>
+		</section>
+
+		<!-- <script src="node_modules/todomvc-common/base.js"></script> -->
+		<script src="node_modules/stimulus/dist/stimulus.umd.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/controllers/dishes_controller.js"></script>
+    <script src="js/controllers/dish_controller.js"></script>
+    <script src="js/controllers/ingredient_controller.js"></script>
+	</body>
+</html>
