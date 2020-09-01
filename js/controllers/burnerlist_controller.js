@@ -88,5 +88,4 @@ application.register('burnerlist', class extends Stimulus.Controller {
     }
   }
 
-
 })

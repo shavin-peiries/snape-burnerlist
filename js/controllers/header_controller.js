@@ -10,6 +10,10 @@ application.register('header', class extends Stimulus.Controller {
 
   getTime() {
     this.timeTarget.textContent = `${this.formatAMPM(this.getCurrentDate())}`;
+
+    setInterval(() => {
+      this.timeTarget.textContent = `${this.formatAMPM(this.getCurrentDate())}`;
+    }, (60 - this.getCurrentDate()) * 1000);
   }
 
   getDate() {
