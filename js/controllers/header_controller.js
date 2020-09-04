@@ -1,11 +1,24 @@
 application.register('header', class extends Stimulus.Controller {
 	static get targets() {
-		return ['date', 'time', 'name', 'nameInput']
+		return ['date', 'time', 'name', 'editNameInput']
 	}
 
 	connect() {
+    this.load();
     this.getTime();
     this.getDate();
+  }
+
+  save(name) {
+    localStorage.setItem('name', name);
+  }
+
+  load() {
+
+    if(localStorage.getItem('name')) {
+      var name = this.parseName(localStorage.getItem('name'));
+      this.nameTarget.value = name;
+    }
   }
 
   getTime() {
@@ -55,22 +68,30 @@ application.register('header', class extends Stimulus.Controller {
   }
 
   editName() {
-		// this.nameInputTarget.value = this.nameTarget.textContent;
 		this.element.classList.add('editing');
-		this.nameInputTarget.select();
+    this.editNameInputTarget.select();
 	}
 
   updateName(event) {
     event.preventDefault();
 
-    if(this.nameInputTarget.value != ''){
-      if(this.nameInputTarget.value.endsWith('s')){
-        this.nameTarget.textContent = this.nameInputTarget.value + '\'';
-      } else {
-        this.nameTarget.textContent = this.nameInputTarget.value + '\'s';
-
-      }
+    if(this.editNameInputTarget.value != ''){
+      this.save(this.editNameInputTarget.value);
+      this.parseName(this.editNameInputTarget.value);
 			this.element.classList.remove('editing');
+    }
+  }
+
+  cancelNameUpdate() {
+    this.element.classList.remove('editing');
+    this.editNameInputTarget.value = '';
+  }
+
+  parseName(name) {
+    if(name.endsWith('s')){
+      this.nameTarget.textContent = name + '\'';
+    } else {
+      this.nameTarget.textContent = name + '\'s';
     }
   }
 

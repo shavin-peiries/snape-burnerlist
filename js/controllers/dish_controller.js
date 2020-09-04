@@ -1,66 +1,87 @@
 application.register('dish', class extends Stimulus.Controller {
-	static get targets() {
-		return ['name', 'newIngredient', 'ingredientTemplate', 'ingredientList', 'ingredientForm', 'addIngredient', 'input']
-	}
 
-	initialize() {
+	static get targets() {
+		return ['dishName', 'newIngredient', 'ingredientTemplate', 'ingredientList', 'ingredientForm', 'addIngredient', 'dishEditInput']
 	}
 
 	connect() {
-		if(this.hasNameTarget){
-			this.nameTarget.textContent = this.element.dataset.value;
+		if(this.hasDishNameTarget){
+			this.dishNameTarget.textContent = this.element.dataset.value;
 		}
-		this.newIngredientTarget.focus();
+
+		if(this.element.hasAttribute('data-new')){
+			this.showAddIngredient();
+		}
 	}
 
-	save(section, action, data) {
-
+	modify(section, data) {
 		var listItems = this.loadFromLocalStorage();
 
 		switch (section) {
       case 'Important Front Burner':
-        switch (action) {
-          case 'Add':
-            listItems.important[data.indexOfDish - 1].ingredients.push({ingredientName: data.ingredientName, status: data.status});
-						this.saveToLocalStorage(listItems);
-						break;
-          case 'Edit':
-						// to-do
-						break;
-          case 'Delete':
-						// to-do
-						break;
-				}
+				listItems.important[data.indexOfDish - 1].ingredients.push({ingredientName: data.ingredientName, status: data.status});
+				this.saveToLocalStorage(listItems);
 				break;
       case 'Urgent Back Burner':
-        switch (action) {
-          case 'Add':
-            listItems.urgent[data.indexOfDish - 1].ingredients.push({ingredientName: data.ingredientName, status: data.status});
-						this.saveToLocalStorage(listItems);
-						break;
-          case 'Edit':
-						// to-do
-						break;
-          case 'Delete':
-						// to-do
-						break;
-				}
+				listItems.urgent[data.indexOfDish - 1].ingredients.push({ingredientName: data.ingredientName, status: data.status});
+				this.saveToLocalStorage(listItems);
 				break;
-				case 'Other Burner':
-					switch (action) {
-						case 'Add':
-							listItems.other[data.indexOfDish].ingredients.push({ingredientName: data.ingredientName, status: data.status});
-							this.saveToLocalStorage(listItems);
-							break;
-						case 'Edit':
-							// to-do
-							break;
-						case 'Delete':
-							// to-do
-							break;
-					}
-					break;
+			case 'Other Burner':
+				listItems.other[data.indexOfDish].ingredients.push({ingredientName: data.ingredientName, status: data.status});
+				this.saveToLocalStorage(listItems);
+				break;
     }
+	}
+
+	updateLocalStorage() {
+		var listItems = {important: [], urgent: [], other: []};
+
+		const importantList = document.querySelector('[data-target="dishes.importantDishList"]').querySelectorAll('li.dish');
+		const urgentList = document.querySelector('[data-target="dishes.urgentDishList"]').querySelectorAll('li.dish');
+		const otherList = document.querySelector('[data-target="dishes.otherDishList"]').querySelectorAll('li.dish');
+
+		listItems = this.updateListItems(importantList, 'Important Front Burner', listItems);
+		listItems = this.updateListItems(urgentList, 'Urgent Back Burner', listItems);
+		listItems = this.updateListItems(otherList, 'Other Burner', listItems);
+
+		this.saveToLocalStorage(listItems);
+	}
+
+	updateListItems(list, section, listItems) {
+		list.forEach((dish)=> {
+			var data = {
+				dishName: '',
+				ingredients: []
+			};
+
+			if (section === 'Other Burner') {
+				data.dishName = 'Kitchen Sink';
+			} else {
+				data.dishName = dish.dataset.value;
+			}
+
+			const ingredients = dish.querySelectorAll('li.ingredient');
+
+			if(ingredients.length > 0) {
+				ingredients.forEach((ingredient) => {
+					data.ingredients.push({ingredientName: ingredient.dataset.value, status: ingredient.hasAttribute('data-completed')});
+				});
+			}
+
+			switch (section) {
+				case 'Important Front Burner':
+					listItems.important.push(data);
+					break;
+				case 'Urgent Back Burner':
+					listItems.urgent.push(data);
+					break;
+				case 'Other Burner':
+					listItems.other.push(data);
+					break;
+			}
+		});
+
+		return listItems;
 	}
 
 	loadFromLocalStorage() {
@@ -77,28 +98,26 @@ application.register('dish', class extends Stimulus.Controller {
 		var sectionOfIngredient = this.element.parentNode.dataset.target;
 
 		var indexOfDish = Array.from(this.element.parentNode.children).indexOf(this.element);
-		console.log(indexOfDish);
 
 		switch (sectionOfIngredient) {
-			case 'burnerlist.importantDishList dishes.importantDishList':
+			case 'dishes.importantDishList':
 				sectionOfIngredient = 'Important Front Burner';
 				break;
-			case 'burnerlist.urgentDishList dishes.urgentDishList':
+			case 'dishes.urgentDishList':
 				sectionOfIngredient = 'Urgent Back Burner';
 				break;
-			case 'burnerlist.otherDishList dishes.otherDishList':
+			case 'dishes.otherDishList':
 				sectionOfIngredient = 'Other Burner';
 				break;
 		}
 
 		if (this.newIngredientTarget.value != '') {
 			this.appendIngredient(this.newIngredientTarget.value, false);
-			this.save(sectionOfIngredient, 'Add', {indexOfDish: indexOfDish, ingredientName: this.newIngredientTarget.value, status: false});
+			this.modify(sectionOfIngredient, {indexOfDish: indexOfDish, ingredientName: this.newIngredientTarget.value, status: false});
 			this.clearNewIngredient();
 		}
   }
 
-  // Appending the todo into the list of todos
 	appendIngredient(ingredientName, status) {
 		var ingredient = document.importNode(this.ingredientTemplateTarget.content, true);
 		ingredient.querySelector('li').dataset.value = ingredientName
@@ -119,60 +138,66 @@ application.register('dish', class extends Stimulus.Controller {
 		} else {
 			this.newIngredientTarget.focus();
 		}
+
+		if(this.element.hasAttribute('data-new')){
+			this.element.removeAttribute('data-new');
+		}
 	}
 
 	clearNewIngredient() {
 		this.newIngredientTarget.value = '';
 	}
 
-	cancelNewIngredient() {
+	cancelNewIngredient(event) {
+		event.preventDefault();
+
 		this.ingredientFormTarget.classList.add('d-none');
 		this.addIngredientTarget.classList.remove('d-none');
 	}
 
-	editDish() {
-		this.inputTarget.value = this.element.dataset.value;
+	cancelEditDish(event) {
+		event.preventDefault();
+
+		this.dishEditInputTarget.value = '';
+		this.element.classList.remove('dish--editing');
+	}
+
+	showDishEditForm() {
+		this.dishEditInputTarget.value = this.element.dataset.value;
 		this.element.classList.add('dish--editing');
-		this.inputTarget.select();
+		this.dishEditInputTarget.select();
 	}
 
 	removeDish() {
 		this.element.parentNode.removeChild(this.element);
+		this.updateLocalStorage();
 	}
 
-	// used to trigger an event that's caught in the html and then run in the parent controller
-	change() {
-		var event = new Event('todo.change');
-		this.element.dispatchEvent(event);
-	}
-
-	update(event) {
+	editDish(event) {
 		event.preventDefault();
 
-		if (this.inputTarget.value != '') {
-			this.element.dataset.value = this.inputTarget.value;
-			this.nameTarget.textContent = this.inputTarget.value;
+		if (this.dishEditInputTarget.value != '') {
+			this.element.dataset.value = this.dishEditInputTarget.value;
+			this.dishNameTarget.textContent = this.dishEditInputTarget.value;
 			this.element.classList.remove('dish--editing');
-			this.change();
-		} else {
-			this.destroy();
+			this.updateLocalStorage();
 		}
 	}
 
-	keyup(event) {
+	keyupOnEscToCancelEditDish(event) {
 		var ESC_KEY = 27;
 
 		if (event.keyCode == ESC_KEY) {
-			this.inputTarget.value = this.element.dataset.value;
+			this.dishEditInputTarget.value = this.element.dataset.value;
 			this.element.classList.remove('dish--editing');
 		}
 	}
 
-	keyupNewIngredient(event) {
+	keyupNewIngredientCancel(event) {
 		var ESC_KEY = 27;
 
 		if (event.keyCode == ESC_KEY) {
-			this.cancelNewIngredient();
+			this.cancelNewIngredient(event);
 		}
 	}
 

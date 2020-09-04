@@ -1,10 +1,11 @@
 application.register('ingredient', class extends Stimulus.Controller {
 	static get targets() {
-		return [ 'toggle', 'label', 'input' ]
+		return ['toggle', 'label', 'ingredientEditInput' ]
 	}
 
 	connect() {
 		this.labelTarget.textContent = this.element.dataset.value;
+
 		if (this.element.hasAttribute('data-completed')) {
 			this.element.classList.add('completed');
 			this.toggleTarget.checked = true;
@@ -23,16 +24,16 @@ application.register('ingredient', class extends Stimulus.Controller {
 	}
 
 	edit() {
-		this.inputTarget.value = this.element.dataset.value;
+		this.ingredientEditInputTarget.value = this.element.dataset.value;
 		this.element.classList.add('editing');
-		this.inputTarget.select();
+		this.ingredientEditInputTarget.select();
 	}
 
 	update(event) {
 		event.preventDefault();
-		if (this.inputTarget.value != '') {
-			this.element.dataset.value = this.inputTarget.value;
-			this.labelTarget.textContent = this.inputTarget.value;
+		if (this.ingredientEditInputTarget.value != '') {
+			this.element.dataset.value = this.ingredientEditInputTarget.value;
+			this.labelTarget.textContent = this.ingredientEditInputTarget.value;
 			this.element.classList.remove('editing');
 			this.change();
 		};
@@ -42,8 +43,7 @@ application.register('ingredient', class extends Stimulus.Controller {
 		var ESC_KEY = 27;
 
 		if (event.keyCode == ESC_KEY) {
-			// Cancel edit
-			this.inputTarget.value = this.element.dataset.value;
+			this.ingredientEditInputTarget.value = this.element.dataset.value;
 			this.element.classList.remove('editing');
 		}
 	}

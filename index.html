@@ -14,6 +14,7 @@
 <body data-controller="burnerlist">
 
   <header class="burner-header" data-controller="header">
+
     <div class="burner-header--date-time">
       <span data-target="header.time"></span>
       &nbsp;
@@ -27,16 +28,22 @@
         <div class="col-md-12">
           <form data-action="header#updateName">
             <div class="input-group">
-              <input type="text" class="input-group--control" placeholder="What's your name?" data-target="header.nameInput">
+              <input type="text" class="input-group--control" placeholder="What's your name?" data-target="header.editNameInput">
               <div class="input-group--button-list">
                 <button class="btn btn-prime" data-action="click->header#updateName">Update name</button>
-                <button class="btn btn-second" data-action="">Cancel</button>
+                <button class="btn btn-second" data-action="click->header#cancelNameUpdate">Cancel</button>
               </div>
             </div>
           </form>
         </div>
       </div>
     </div>
+
+    <p class="burner-header--quote">
+      “The Principle of Priority states (a) you must know the difference between what is urgent and what is important, and (b) you must do what's important first.” <br>
+      <small>- Steven Pressfield</small>
+    </p>
+
 
   </header>
 
@@ -53,40 +60,40 @@
 
           <div class="burner--list">
 
-            <form data-target="dishes.dishForm" data-action="dishes#createDish" data-value="Important Front Burner">
+            <form class="d-none" data-target="dishes.dishForm" data-action="dishes#createDish" data-value="Important Front Burner">
               <div class="input-group">
-                <input type="text" class="input-group--control bold" placeholder="Name this dish..." data-target="dishes.newDish">
+                <input type="text" class="input-group--control bold" placeholder="Name this dish..." data-target="dishes.newDishInput">
                 <div class="input-group--button-list">
                   <button class="btn btn-prime" data-action="click->dishes#createDish" data-value="Important Front Burner">Add dish</button>
-                  <button class="btn btn-second" data-action="click->dishes#cancelNewDish">Cancel</button>
+                  <button class="btn btn-second" data-action="click->dishes#cancelNewDishInput">Cancel</button>
                 </div>
               </div>
             </form>
 
-            <ul class="dishes-list" data-target="burnerlist.importantDishList dishes.importantDishList">
-              <template data-target="burnerlist.dishTemplate dishes.dishTemplate">
-                <li class="dish" data-controller="dish">
+            <ul class="dishes-list important-dish-list" data-target="dishes.importantDishList">
+              <template data-target="dishes.dishTemplate">
+                <li class="dish" data-controller="dish" data-action="">
                   <div class="dish--title">
-                    <label data-target="dish.name" data-action="dblclick->dish#editDish"></label>
+                    <label data-target="dish.dishName" data-action="dblclick->dish#showDishEditForm"></label>
                     <button class="destroy" data-action="dish#removeDish"></button>
                   </div>
 
                   <div class="dish--edit">
-                    <form data-action="dish#update">
+                    <form data-action="dish#updateLocalStorage">
                       <div class="input-group edit">
-                        <input type="text" class="input-group--control" placeholder="Describe this dish..." data-action="keyup->dish#keyup" data-target="dish.input">
+                        <input type="text" class="input-group--control" placeholder="Describe this dish..." data-action="keyup->dish#keyupOnEscToCancelEditDish" data-target="dish.dishEditInput">
                         <div class="input-group--button-list">
-                          <button class="btn btn-prime" data-action="click->dish#update">Edit dish</button>
-                          <button class="btn btn-second">Cancel</button>
+                          <button class="btn btn-prime" data-action="click->dish#editDish">Edit dish</button>
+                          <button class="btn btn-second" data-action="click->dish#cancelEditDish">Cancel</button>
                         </div>
                       </div>
                     </form>
                   </div>
 
                   <div class="dish--body">
-                    <ul class="dish--ingredient-list" data-target="burnerlist.ingredientList dish.ingredientList">
-                      <template data-target="burnerlist.ingredientTemplate dish.ingredientTemplate">
-                        <li class="ingredient" data-controller="ingredient" data-action="ingredient.change->dish#ingredientChange">
+                    <ul class="dish--ingredient-list" data-target="dish.ingredientList">
+                      <template data-target="dish.ingredientTemplate">
+                        <li class="ingredient" data-controller="ingredient" data-action="ingredient.change->dish#updateLocalStorage">
                           <div class="view">
                             <input type="checkbox" class="toggle" data-action="ingredient#toggle" data-target="ingredient.toggle">
                             <label data-target="ingredient.label" data-action="dblclick->ingredient#edit"></label>
@@ -95,7 +102,7 @@
 
                           <form data-action="ingredient#update">
                             <div class="input-group edit">
-                              <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-action="blur->ingredient#cancelIngredientUpdate keyup->ingredient#keyup" data-target="ingredient.input">
+                              <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-action="blur->ingredient#cancelIngredientUpdate keyup->ingredient#keyup" data-target="ingredient.ingredientEditInput">
                               <div class="input-group--button-list">
                                 <button class="btn btn-prime" data-action="mousedown->ingredient#update">Edit ingredient</button>
                                 <button class="btn btn-second" type="button" data-action="mousedown->ingredient#cancelIngredientUpdate">Cancel</button>
@@ -108,9 +115,9 @@
                     </ul>
 
                     <div class="dish--add-ingredient">
-                      <form class="" data-action="dish#createIngredient" data-target="dish.ingredientForm">
+                      <form class="d-none" data-action="dish#createIngredient" data-target="dish.ingredientForm">
                         <div class="input-group">
-                          <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-target="dish.newIngredient" data-action="blur->dish#cancelNewIngredient keyup->dish#keyupNewIngredient">
+                          <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-target="dish.newIngredient" data-action="blur->dish#cancelNewIngredient keyup->dish#keyupNewIngredientCancel">
                           <div class="input-group--button-list">
                             <button class="btn btn-prime" type="button" data-action="mousedown->dish#createIngredient">Add ingredient</button>
                             <button class="btn btn-second" type="button" data-action="mousedown->dish#cancelNewIngredient">Cancel</button>
@@ -118,7 +125,7 @@
                         </div>
                       </form>
 
-                      <button class="d-none btn btn-second" data-action="click->dish#showAddIngredient" data-target="dish.addIngredient">Add an ingredient</button>
+                      <button class="btn btn-second" data-action="click->dish#showAddIngredient" data-target="dish.addIngredient">Add an ingredient</button>
                     </div>
                   </div>
                 </li>
@@ -141,38 +148,38 @@
 
               <form class="d-none" data-target="dishes.dishForm" data-action="dishes#createDish" data-value="Urgent Back Burner">
                 <div class="input-group">
-                  <input type="text" class="input-group--control bold" placeholder="Name this dish..." data-target="dishes.newDish">
+                  <input type="text" class="input-group--control bold" placeholder="Name this dish..." data-target="dishes.newDishInput">
                   <div class="input-group--button-list">
                     <button class="btn btn-prime" data-action="click->dishes#createDish" data-value="Urgent Back Burner">Add dish</button>
-                    <button class="btn btn-second" data-action="click->dishes#cancelNewDish">Cancel</button>
+                    <button class="btn btn-second" data-action="click->dishes#cancelNewDishInput">Cancel</button>
                   </div>
                 </div>
               </form>
 
-              <ul class="dishes-list" data-target="burnerlist.urgentDishList dishes.urgentDishList">
-                <template data-target="burnerlist.dishTemplate dishes.dishTemplate">
+              <ul class="dishes-list urgent-dish-list" data-target="dishes.urgentDishList">
+                <template data-target="dishes.dishTemplate">
                   <li class="dish" data-controller="dish">
                     <div class="dish--title">
-                      <label data-target="dish.name" data-action="dblclick->dish#editDish"></label>
+                      <label data-target="dish.dishName" data-action="dblclick->dish#showDishEditForm"></label>
                       <button class="destroy" data-action="dish#removeDish"></button>
                     </div>
 
                     <div class="dish--edit">
-                      <form data-action="dish#update">
+                      <form data-action="dish#updateLocalStorage">
                         <div class="input-group edit">
-                          <input type="text" class="input-group--control" placeholder="Describe this dish..." data-action="keyup->dish#keyup" data-target="dish.input">
+                          <input type="text" class="input-group--control" placeholder="Describe this dish..." data-action="keyup->dish#keyupOnEscToCancelEditDish" data-target="dish.dishEditInput">
                           <div class="input-group--button-list">
-                            <button class="btn btn-prime" data-action="click->dish#update">Edit dish</button>
-                            <button class="btn btn-second">Cancel</button>
+                            <button class="btn btn-prime" data-action="click->dish#editDish">Edit dish</button>
+                            <button class="btn btn-second" data-action="click->dish#cancelEditDish">Cancel</button>
                           </div>
                         </div>
                       </form>
                     </div>
 
                     <div class="dish--body">
-                      <ul class="dish--ingredient-list" data-target="burnerlist.ingredientList dish.ingredientList">
-                        <template data-target="burnerlist.ingredientTemplate dish.ingredientTemplate">
-                          <li class="ingredient" data-controller="ingredient" data-action="ingredient.change->dish#ingredientChange">
+                      <ul class="dish--ingredient-list" data-target="dish.ingredientList">
+                        <template data-target="dish.ingredientTemplate">
+                          <li class="ingredient" data-controller="ingredient" data-action="ingredient.change->dish#updateLocalStorage">
                             <div class="view">
                               <input type="checkbox" class="toggle" data-action="ingredient#toggle" data-target="ingredient.toggle">
                               <label data-target="ingredient.label" data-action="dblclick->ingredient#edit"></label>
@@ -181,7 +188,7 @@
 
                             <form data-action="ingredient#update">
                               <div class="input-group edit">
-                                <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-action="blur->ingredient#cancelIngredientUpdate keyup->ingredient#keyup" data-target="ingredient.input">
+                                <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-action="blur->ingredient#cancelIngredientUpdate keyup->ingredient#keyup" data-target="ingredient.ingredientEditInput">
                                 <div class="input-group--button-list">
                                   <button class="btn btn-prime" data-action="mousedown->ingredient#update">Edit ingredient</button>
                                   <button class="btn btn-second" type="button" data-action="mousedown->ingredient#cancelIngredientUpdate">Cancel</button>
@@ -193,9 +200,9 @@
                       </ul>
 
                       <div class="dish--add-ingredient">
-                        <form class="" data-action="dish#createIngredient" data-target="dish.ingredientForm">
+                        <form class="d-none" data-action="dish#createIngredient" data-target="dish.ingredientForm">
                           <div class="input-group">
-                            <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-target="dish.newIngredient" data-action="blur->dish#cancelNewIngredient keyup->dish#keyupNewIngredient">
+                            <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-target="dish.newIngredient" data-action="blur->dish#cancelNewIngredient keyup->dish#keyupNewIngredientCancel">
                             <div class="input-group--button-list">
                               <button class="btn btn-prime" type="button" data-action="mousedown->dish#createIngredient">Add ingredient</button>
                               <button class="btn btn-second" type="button" data-action="mousedown->dish#cancelNewIngredient">Cancel</button>
@@ -203,7 +210,7 @@
                           </div>
                         </form>
 
-                        <button class="d-none btn btn-second" data-action="click->dish#showAddIngredient" data-target="dish.addIngredient">Add an ingredient</button>
+                        <button class="btn btn-second" data-action="click->dish#showAddIngredient" data-target="dish.addIngredient">Add an ingredient</button>
                       </div>
                     </div>
                   </li>
@@ -220,24 +227,24 @@
             <div class="burner--list">
               <form class="d-none" data-target="dishes.dishForm" data-action="dishes#createDish">
                 <div class="input-group">
-                  <input type="text" class="input-group--control bold" placeholder="Name this dish..." data-target="dishes.newDish">
+                  <input type="text" class="input-group--control bold" placeholder="Name this dish..." data-target="dishes.newDishInput">
                   <div class="input-group--button-list">
                     <button class="btn btn-prime" data-action="click->dishes#createDish">Add dish</button>
-                    <button class="btn btn-second" data-action="click->dishes#cancelNewDish">Cancel</button>
+                    <button class="btn btn-second" data-action="click->dishes#cancelNewDishInput">Cancel</button>
                   </div>
                 </div>
               </form>
 
-              <ul class="dishes-list" data-target="burnerlist.otherDishList dishes.otherDishList">
+              <ul class="dishes-list other-dish-list" data-target="dishes.otherDishList">
                 <li class="dish" data-controller="dish">
                   <div class="dish--title">
                     <label class="d-none">Kitchen Sink</label>
                   </div>
 
                   <div class="dish--body">
-                    <ul class="dish--ingredient-list" data-target="burnerlist.ingredientList dish.ingredientList">
-                      <template data-target="burnerlist.ingredientTemplate dish.ingredientTemplate">
-                        <li class="ingredient" data-controller="ingredient" data-action="ingredient.change->dish#ingredientChange">
+                    <ul class="dish--ingredient-list" data-target="dish.ingredientList">
+                      <template data-target="dish.ingredientTemplate">
+                        <li class="ingredient" data-controller="ingredient" data-action="ingredient.change->dish#updateLocalStorage">
                           <div class="view">
                             <input type="checkbox" class="toggle" data-action="ingredient#toggle" data-target="ingredient.toggle">
                             <label data-target="ingredient.label" data-action="dblclick->ingredient#edit"></label>
@@ -246,7 +253,7 @@
 
                           <form data-action="ingredient#update">
                             <div class="input-group edit">
-                              <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-action="blur->ingredient#cancelIngredientUpdate keyup->ingredient#keyup" data-target="ingredient.input">
+                              <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-action="blur->ingredient#cancelIngredientUpdate keyup->ingredient#keyup" data-target="ingredient.ingredientEditInput">
                               <div class="input-group--button-list">
                                 <button class="btn btn-prime" data-action="mousedown->ingredient#update">Edit ingredient</button>
                                 <button class="btn btn-second" type="button" data-action="mousedown->ingredient#cancelIngredientUpdate">Cancel</button>
@@ -260,9 +267,9 @@
                     <div class="dish--add-ingredient">
                       <form class="d-none" data-action="dish#createIngredient" data-target="dish.ingredientForm">
                         <div class="input-group">
-                          <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-target="dish.newIngredient" data-action="blur->dish#cancelNewIngredient keyup->dish#keyupNewIngredient">
+                          <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-target="dish.newIngredient" data-action="blur->dish#cancelNewIngredient keyup->dish#keyupNewIngredientCancel">
                           <div class="input-group--button-list">
-                            <button class="btn btn-prime" type="button" data-action="mousedown->dish#createIngredient">Add ingredient</button>
+                            <button class="btn btn-prime" type="button" data-action="mousedown->dish#createIngredient">Add Ingredient</button>
                             <button class="btn btn-second" type="button" data-action="mousedown->dish#cancelNewIngredient">Cancel</button>
                           </div>
                         </div>

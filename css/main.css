@@ -76,7 +76,15 @@ small,
 
 .burner-header .burner-header--chef {
   text-align: center;
+  margin-bottom: 1rem;
+}
+
+.burner-header .burner-header--quote {
+  margin: 0 auto;
+  text-align: center;
+  max-width: 800px;
   margin-bottom: 1.5rem;
+  color: #333;
 }
 
 .burner-header .burner-header--update {
@@ -202,6 +210,7 @@ small,
 
 .dish .dish--title .destroy::after {
   content: '×';
+  position: absolute;
 }
 
 .dish .dish--title:hover .destroy {
@@ -296,6 +305,7 @@ small,
 
 .dish .dish--body .dish--ingredient-list .ingredient .view .destroy::after {
   content: '×';
+  position: absolute;
 }
 
 .dish .dish--body .dish--ingredient-list .ingredient .edit {

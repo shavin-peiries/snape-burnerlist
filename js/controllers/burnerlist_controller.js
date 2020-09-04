@@ -1,33 +1,31 @@
 application.register('burnerlist', class extends Stimulus.Controller {
 	static get targets() {
-    return ['importantDishList', 'urgentDishList', 'otherDishList', 'dishTemplate', 'ingredientTemplate', 'ingredientList']
+    return []
 	}
 
 	connect() {
     this.load();
 	}
 
-  // When the site is loaded the load function is called to see if any data on localStorage is present
 	load() {
     var listItems = this.loadFromLocalStorage();
 
     if(listItems === null) {
       listItems = {important: [], urgent: [], other: [{dishName: 'Kitchen Sink', ingredients: []}]};
       this.saveToLocalStorage(listItems);
-
     } else {
       var _this = this;
 
       listItems.important.forEach(function(dish){
-        _this.appendDish('Important Front Burner', dish);
+        _this.appendDishToDocument('Important Front Burner', dish);
       });
 
       listItems.urgent.forEach(function(dish){
-        _this.appendDish('Urgent Back Burner', dish);
+        _this.appendDishToDocument('Urgent Back Burner', dish);
       });
 
       listItems.other.forEach(function(dish){
-        _this.appendDish('Other Burner', dish);
+        _this.appendDishToDocument('Other Burner', dish);
       })
     }
   }
@@ -40,43 +38,44 @@ application.register('burnerlist', class extends Stimulus.Controller {
     localStorage.setItem('list-items', JSON.stringify(listItems));
   }
 
-  appendDish(section, dishData) {
-    var _this = this;
+  appendDishToDocument(section, dishData) {
+    var dishTemplate = document.querySelector('[data-target="dishes.dishTemplate"]')
 
-    if(section === 'Important Front Burner' && this.hasImportantDishListTarget) {
-
-      var dish = document.importNode(this.dishTemplateTarget.content, true);
+    if(section === 'Important Front Burner') {
+      var dish = document.importNode(dishTemplate.content, true);
       dish.querySelector('li').dataset.value = dishData.dishName;
 
-      _this.importantDishListTarget.appendChild(dish);
+      var importantDishList = document.querySelector('.important-dish-list');
+      importantDishList.appendChild(dish);
 
-      var appendedDish = _this.importantDishListTarget.querySelector('.dish:last-child');
+      var appendedDish = importantDishList.querySelector('.dish:last-child');
+      this.appendIngredientsToBody(appendedDish, dishData.ingredients);
 
-      this.appendIngredient(appendedDish, dishData.ingredients);
-
-    } else if (section === 'Urgent Back Burner' && this.hasUrgentDishListTarget) {
-      var dish = document.importNode(this.dishTemplateTarget.content, true);
+    } else if (section === 'Urgent Back Burner') {
+      var dish = document.importNode(dishTemplate.content, true);
       dish.querySelector('li').dataset.value = dishData.dishName;
-      _this.urgentDishListTarget.appendChild(dish);
 
-      var appendedDish = _this.urgentDishListTarget.querySelector('.dish:last-child');
+      var urgentDishList = document.querySelector('.urgent-dish-list');
+      urgentDishList.appendChild(dish);
 
-      this.appendIngredient(appendedDish, dishData.ingredients);
-    } else if (section === 'Other Burner' && this.hasOtherDishListTarget) {
+      var appendedDish = urgentDishList.querySelector('.dish:last-child');
+      this.appendIngredientsToBody(appendedDish, dishData.ingredients);
 
-      var appendedDish = _this.otherDishListTarget.querySelector('.dish:last-child');
-      this.appendIngredient(appendedDish, dishData.ingredients);
+    } else if (section === 'Other Burner') {
+      var otherDishList = document.querySelector('.other-dish-list');
+
+      var appendedDish = otherDishList.querySelector('.dish:last-child');
+      this.appendIngredientsToBody(appendedDish, dishData.ingredients);
     }
   }
 
-  appendIngredient(dish, ingredients) {
-    var _this = this;
-
+  appendIngredientsToBody(dish, ingredients) {
     var appendedDishIngredientBody = dish.querySelector('.dish--ingredient-list');
 
+    var ingredientTemplate = document.querySelector('[data-target="dish.ingredientTemplate"]');
     if (ingredients.length > 0) {
       ingredients.forEach(function(ingredientData){
-        var ingredient = document.importNode(_this.ingredientTemplateTarget.content, true);
+        var ingredient = document.importNode(ingredientTemplate.content, true);
         ingredient.querySelector('li').dataset.value = ingredientData.ingredientName;
 
         if (ingredientData.status) {
