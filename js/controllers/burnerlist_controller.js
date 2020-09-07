@@ -17,11 +17,11 @@ application.register('burnerlist', class extends Stimulus.Controller {
       var _this = this;
 
       listItems.important.forEach(function(dish){
-        _this.appendDishToDocument('Important Front Burner', dish);
+        _this.appendDishToDocument('Important Back Burner', dish);
       });
 
       listItems.urgent.forEach(function(dish){
-        _this.appendDishToDocument('Urgent Back Burner', dish);
+        _this.appendDishToDocument('Urgent Front Burner', dish);
       });
 
       listItems.other.forEach(function(dish){
@@ -41,7 +41,7 @@ application.register('burnerlist', class extends Stimulus.Controller {
   appendDishToDocument(section, dishData) {
     var dishTemplate = document.querySelector('[data-target="dishes.dishTemplate"]')
 
-    if(section === 'Important Front Burner') {
+    if(section === 'Important Back Burner') {
       var dish = document.importNode(dishTemplate.content, true);
       dish.querySelector('li').dataset.value = dishData.dishName;
 
@@ -51,7 +51,7 @@ application.register('burnerlist', class extends Stimulus.Controller {
       var appendedDish = importantDishList.querySelector('.dish:last-child');
       this.appendIngredientsToBody(appendedDish, dishData.ingredients);
 
-    } else if (section === 'Urgent Back Burner') {
+    } else if (section === 'Urgent Front Burner') {
       var dish = document.importNode(dishTemplate.content, true);
       dish.querySelector('li').dataset.value = dishData.dishName;
 

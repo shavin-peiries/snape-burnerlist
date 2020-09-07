@@ -52,7 +52,7 @@
       <div class="row burner">
         <div class="col-md-6 primary-burner" data-controller="dishes">
           <div class="burner--header">
-            <h4><b>Important</b> Front Burner</h4>
+            <h4><b>Important</b> Back Burner</h4>
             <div class="button-container">
               <button class="btn btn-prime" data-action="click->dishes#showCreateDishForm">New Dish</button>
             </div>
@@ -60,11 +60,11 @@
 
           <div class="burner--list">
 
-            <form class="d-none" data-target="dishes.dishForm" data-action="dishes#createDish" data-value="Important Front Burner">
+            <form class="d-none" data-target="dishes.dishForm" data-action="dishes#createDish" data-value="Important Back Burner">
               <div class="input-group">
                 <input type="text" class="input-group--control bold" placeholder="Name this dish..." data-target="dishes.newDishInput">
                 <div class="input-group--button-list">
-                  <button class="btn btn-prime" data-action="click->dishes#createDish" data-value="Important Front Burner">Add dish</button>
+                  <button class="btn btn-prime" data-action="click->dishes#createDish" data-value="Important Back Burner">Add dish</button>
                   <button class="btn btn-second" data-action="click->dishes#cancelNewDishInput">Cancel</button>
                 </div>
               </div>
@@ -138,7 +138,7 @@
 
           <div class="urgent-back-burner" data-controller="dishes">
             <div class="burner--header">
-              <h4><b>Urgent</b> Back Burner</h4>
+              <h4><b>Urgent</b> Front Burner</h4>
               <div class="button-container">
                 <button class="btn btn-default btn-prime" data-action="click->dishes#showCreateDishForm">New Dish</button>
               </div>
@@ -146,11 +146,11 @@
 
             <div class="burner--list">
 
-              <form class="d-none" data-target="dishes.dishForm" data-action="dishes#createDish" data-value="Urgent Back Burner">
+              <form class="d-none" data-target="dishes.dishForm" data-action="dishes#createDish" data-value="Urgent Front Burner">
                 <div class="input-group">
                   <input type="text" class="input-group--control bold" placeholder="Name this dish..." data-target="dishes.newDishInput">
                   <div class="input-group--button-list">
-                    <button class="btn btn-prime" data-action="click->dishes#createDish" data-value="Urgent Back Burner">Add dish</button>
+                    <button class="btn btn-prime" data-action="click->dishes#createDish" data-value="Urgent Front Burner">Add dish</button>
                     <button class="btn btn-second" data-action="click->dishes#cancelNewDishInput">Cancel</button>
                   </div>
                 </div>

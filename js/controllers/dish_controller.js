@@ -18,11 +18,11 @@ application.register('dish', class extends Stimulus.Controller {
 		var listItems = this.loadFromLocalStorage();
 
 		switch (section) {
-      case 'Important Front Burner':
+      case 'Important Back Burner':
 				listItems.important[data.indexOfDish - 1].ingredients.push({ingredientName: data.ingredientName, status: data.status});
 				this.saveToLocalStorage(listItems);
 				break;
-      case 'Urgent Back Burner':
+      case 'Urgent Front Burner':
 				listItems.urgent[data.indexOfDish - 1].ingredients.push({ingredientName: data.ingredientName, status: data.status});
 				this.saveToLocalStorage(listItems);
 				break;
@@ -40,8 +40,8 @@ application.register('dish', class extends Stimulus.Controller {
 		const urgentList = document.querySelector('[data-target="dishes.urgentDishList"]').querySelectorAll('li.dish');
 		const otherList = document.querySelector('[data-target="dishes.otherDishList"]').querySelectorAll('li.dish');
 
-		listItems = this.updateListItems(importantList, 'Important Front Burner', listItems);
-		listItems = this.updateListItems(urgentList, 'Urgent Back Burner', listItems);
+		listItems = this.updateListItems(importantList, 'Important Back Burner', listItems);
+		listItems = this.updateListItems(urgentList, 'Urgent Front Burner', listItems);
 		listItems = this.updateListItems(otherList, 'Other Burner', listItems);
 
 		this.saveToLocalStorage(listItems);
@@ -69,10 +69,10 @@ application.register('dish', class extends Stimulus.Controller {
 			}
 
 			switch (section) {
-				case 'Important Front Burner':
+				case 'Important Back Burner':
 					listItems.important.push(data);
 					break;
-				case 'Urgent Back Burner':
+				case 'Urgent Front Burner':
 					listItems.urgent.push(data);
 					break;
 				case 'Other Burner':
@@ -101,10 +101,10 @@ application.register('dish', class extends Stimulus.Controller {
 
 		switch (sectionOfIngredient) {
 			case 'dishes.importantDishList':
-				sectionOfIngredient = 'Important Front Burner';
+				sectionOfIngredient = 'Important Back Burner';
 				break;
 			case 'dishes.urgentDishList':
-				sectionOfIngredient = 'Urgent Back Burner';
+				sectionOfIngredient = 'Urgent Front Burner';
 				break;
 			case 'dishes.otherDishList':
 				sectionOfIngredient = 'Other Burner';

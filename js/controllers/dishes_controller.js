@@ -11,11 +11,11 @@ application.register('dishes', class extends Stimulus.Controller {
     const listItems = this.loadFromLocalStorage();
 
     switch (section) {
-      case 'Important Front Burner':
+      case 'Important Back Burner':
         listItems.important.push({dishName: data, ingredients: []});
         this.saveToLocalStorage(listItems);
         break;
-      case 'Urgent Back Burner':
+      case 'Urgent Front Burner':
         listItems.urgent.push({dishName: data, ingredients: []});
         this.saveToLocalStorage(listItems);
         break;
@@ -46,12 +46,12 @@ application.register('dishes', class extends Stimulus.Controller {
   }
 
   appendDishToDocument(section, dishName) {
-    if(section === 'Important Front Burner' && this.hasImportantDishListTarget) {
+    if(section === 'Important Back Burner' && this.hasImportantDishListTarget) {
       var dish = document.importNode(this.dishTemplateTarget.content, true);
       dish.querySelector('li.dish').dataset.value = dishName;
       dish.querySelector('li.dish').setAttribute('data-new', '');
       this.importantDishListTarget.appendChild(dish);
-    } else if (section === 'Urgent Back Burner' && this.hasUrgentDishListTarget) {
+    } else if (section === 'Urgent Front Burner' && this.hasUrgentDishListTarget) {
       var dish = document.importNode(this.dishTemplateTarget.content, true);
       dish.querySelector('li.dish').dataset.value = dishName;
       dish.querySelector('li.dish').setAttribute('data-new', '');
