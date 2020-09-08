@@ -1,6 +1,6 @@
 application.register('burnerlist', class extends Stimulus.Controller {
 	static get targets() {
-    return []
+    return ['']
 	}
 
 	connect() {
@@ -11,6 +11,8 @@ application.register('burnerlist', class extends Stimulus.Controller {
     var listItems = this.loadFromLocalStorage();
 
     if(listItems === null) {
+      $('#firstTimeVisitModal').modal('show');
+
       listItems = {important: [], urgent: [], other: [{dishName: 'Kitchen Sink', ingredients: []}]};
       this.saveToLocalStorage(listItems);
     } else {

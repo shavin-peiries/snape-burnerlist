@@ -163,6 +163,7 @@ small,
 }
 
 .dish {
+  list-style: none;
   margin-bottom: 2em;
 }
 
