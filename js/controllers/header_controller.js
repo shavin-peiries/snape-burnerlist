@@ -14,7 +14,6 @@ application.register('header', class extends Stimulus.Controller {
   }
 
   load() {
-
     if(localStorage.getItem('name')) {
       var name = this.parseName(localStorage.getItem('name'));
       this.nameTarget.value = name;
@@ -88,12 +87,20 @@ application.register('header', class extends Stimulus.Controller {
   }
 
   parseName(name) {
+    var appendedName;
+
     if(name.endsWith('s')){
-      this.nameTarget.textContent = name + '\'';
+      appendedName = name + '\'';
     } else {
-      this.nameTarget.textContent = name + '\'s';
+      appendedName = name + '\'s';
     }
+
+    this.nameTarget.textContent = appendedName;
+    this.changeDocumentTitle(appendedName);
   }
 
+  changeDocumentTitle(name) {
+    document.title = `${name} Burner List`;
+  }
 
 })
