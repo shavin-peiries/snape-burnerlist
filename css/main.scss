@@ -82,6 +82,16 @@ small,
   .burner-header--date-time {
     text-align: right;
     margin-bottom: 1em;
+
+    a {
+      color: #b5b5b5;
+      transition: all 200ms;
+
+      &:hover{
+        text-decoration: none;
+        color: #333;
+      }
+    }
   }
 
   .burner-header--chef {

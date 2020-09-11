@@ -74,6 +74,17 @@ small,
   margin-bottom: 1em;
 }
 
+.burner-header .burner-header--date-time a {
+  color: #b5b5b5;
+  -webkit-transition: all 200ms;
+  transition: all 200ms;
+}
+
+.burner-header .burner-header--date-time a:hover {
+  text-decoration: none;
+  color: #333;
+}
+
 .burner-header .burner-header--chef {
   text-align: center;
   margin-bottom: 1rem;
