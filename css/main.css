@@ -57,8 +57,9 @@ small,
   padding: 0.375em 1em;
 }
 
-.btn-prime {
-  background: #d6d6d6;
+.btn-primary {
+  background: #141414;
+  border: none;
 }
 
 .btn-second {

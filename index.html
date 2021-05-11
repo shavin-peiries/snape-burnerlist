@@ -41,8 +41,8 @@
             <div class="input-group">
               <input type="text" class="input-group--control" placeholder="What's your name?" data-target="header.editNameInput">
               <div class="input-group--button-list">
-                <button class="btn btn-prime" data-action="click->header#updateName">Update name</button>
-                <button class="btn btn-second" data-action="click->header#cancelNameUpdate">Cancel</button>
+                <button class="btn btn-primary btn-sm" data-action="click->header#updateName">Update name</button>
+                <button class="btn btn-second btn-sm" data-action="click->header#cancelNameUpdate">Cancel</button>
               </div>
             </div>
           </form>
@@ -65,7 +65,7 @@
           <div class="burner--header">
             <h4><b>Important</b> Back Burner</h4>
             <div class="button-container">
-              <button class="btn btn-prime" data-action="click->dishes#showCreateDishForm">New Dish</button>
+              <button class="btn btn-primary" data-action="click->dishes#showCreateDishForm">New Dish</button>
             </div>
           </div>
 
@@ -75,8 +75,8 @@
               <div class="input-group">
                 <input type="text" class="input-group--control bold" placeholder="Name this dish..." data-target="dishes.newDishInput">
                 <div class="input-group--button-list">
-                  <button class="btn btn-prime" data-action="click->dishes#createDish" data-value="Important Back Burner">Add dish</button>
-                  <button class="btn btn-second" data-action="click->dishes#cancelNewDishInput">Cancel</button>
+                  <button class="btn btn-primary btn-sm" data-action="click->dishes#createDish" data-value="Important Back Burner">Add dish</button>
+                  <button class="btn btn-second btn-sm" data-action="click->dishes#cancelNewDishInput">Cancel</button>
                 </div>
               </div>
             </form>
@@ -94,8 +94,8 @@
                       <div class="input-group edit">
                         <input type="text" class="input-group--control" placeholder="Describe this dish..." data-action="keyup->dish#keyupOnEscToCancelEditDish" data-target="dish.dishEditInput">
                         <div class="input-group--button-list">
-                          <button class="btn btn-prime" data-action="click->dish#editDish">Edit dish</button>
-                          <button class="btn btn-second" data-action="click->dish#cancelEditDish">Cancel</button>
+                          <button class="btn btn-primary btn-sm" data-action="click->dish#editDish">Edit dish</button>
+                          <button class="btn btn-second btn-sm" data-action="click->dish#cancelEditDish">Cancel</button>
                         </div>
                       </div>
                     </form>
@@ -115,8 +115,8 @@
                             <div class="input-group edit">
                               <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-action="blur->ingredient#cancelIngredientUpdate keyup->ingredient#keyup" data-target="ingredient.ingredientEditInput">
                               <div class="input-group--button-list">
-                                <button class="btn btn-prime" data-action="mousedown->ingredient#update">Edit ingredient</button>
-                                <button class="btn btn-second" type="button" data-action="mousedown->ingredient#cancelIngredientUpdate">Cancel</button>
+                                <button class="btn btn-primary btn-sm" data-action="mousedown->ingredient#update">Edit ingredient</button>
+                                <button class="btn btn-second btn-sm" type="button" data-action="mousedown->ingredient#cancelIngredientUpdate">Cancel</button>
                               </div>
                             </div>
                           </form>
@@ -130,13 +130,13 @@
                         <div class="input-group">
                           <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-target="dish.newIngredient" data-action="blur->dish#cancelNewIngredient keyup->dish#keyupNewIngredientCancel">
                           <div class="input-group--button-list">
-                            <button class="btn btn-prime" type="button" data-action="mousedown->dish#createIngredient">Add ingredient</button>
-                            <button class="btn btn-second" type="button" data-action="mousedown->dish#cancelNewIngredient">Cancel</button>
+                            <button class="btn btn-primary btn-sm" type="button" data-action="mousedown->dish#createIngredient">Add ingredient</button>
+                            <button class="btn btn-second btn-sm" type="button" data-action="mousedown->dish#cancelNewIngredient">Cancel</button>
                           </div>
                         </div>
                       </form>
 
-                      <button class="btn btn-second" data-action="click->dish#showAddIngredient" data-target="dish.addIngredient">Add an ingredient</button>
+                      <button class="btn btn-second btn-sm" data-action="click->dish#showAddIngredient" data-target="dish.addIngredient">Add an ingredient</button>
                     </div>
                   </div>
                 </li>
@@ -151,7 +151,7 @@
             <div class="burner--header">
               <h4><b>Urgent</b> Front Burner</h4>
               <div class="button-container">
-                <button class="btn btn-default btn-prime" data-action="click->dishes#showCreateDishForm">New Dish</button>
+                <button class="btn btn-default btn-primary" data-action="click->dishes#showCreateDishForm">New Dish</button>
               </div>
             </div>
 
@@ -161,8 +161,8 @@
                 <div class="input-group">
                   <input type="text" class="input-group--control bold" placeholder="Name this dish..." data-target="dishes.newDishInput">
                   <div class="input-group--button-list">
-                    <button class="btn btn-prime" data-action="click->dishes#createDish" data-value="Urgent Front Burner">Add dish</button>
-                    <button class="btn btn-second" data-action="click->dishes#cancelNewDishInput">Cancel</button>
+                    <button class="btn btn-primary btn-sm" data-action="click->dishes#createDish" data-value="Urgent Front Burner">Add dish</button>
+                    <button class="btn btn-second btn-sm" data-action="click->dishes#cancelNewDishInput">Cancel</button>
                   </div>
                 </div>
               </form>
@@ -180,8 +180,8 @@
                         <div class="input-group edit">
                           <input type="text" class="input-group--control" placeholder="Describe this dish..." data-action="keyup->dish#keyupOnEscToCancelEditDish" data-target="dish.dishEditInput">
                           <div class="input-group--button-list">
-                            <button class="btn btn-prime" data-action="click->dish#editDish">Edit dish</button>
-                            <button class="btn btn-second" data-action="click->dish#cancelEditDish">Cancel</button>
+                            <button class="btn btn-primary btn-sm" data-action="click->dish#editDish">Edit dish</button>
+                            <button class="btn btn-second btn-sm  " data-action="click->dish#cancelEditDish">Cancel</button>
                           </div>
                         </div>
                       </form>
@@ -201,8 +201,8 @@
                               <div class="input-group edit">
                                 <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-action="blur->ingredient#cancelIngredientUpdate keyup->ingredient#keyup" data-target="ingredient.ingredientEditInput">
                                 <div class="input-group--button-list">
-                                  <button class="btn btn-prime" data-action="mousedown->ingredient#update">Edit ingredient</button>
-                                  <button class="btn btn-second" type="button" data-action="mousedown->ingredient#cancelIngredientUpdate">Cancel</button>
+                                  <button class="btn btn-primary btn-sm" data-action="mousedown->ingredient#update">Edit ingredient</button>
+                                  <button class="btn btn-second btn-sm" type="button" data-action="mousedown->ingredient#cancelIngredientUpdate">Cancel</button>
                                 </div>
                               </div>
                             </form>
@@ -215,13 +215,13 @@
                           <div class="input-group">
                             <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-target="dish.newIngredient" data-action="blur->dish#cancelNewIngredient keyup->dish#keyupNewIngredientCancel">
                             <div class="input-group--button-list">
-                              <button class="btn btn-prime" type="button" data-action="mousedown->dish#createIngredient">Add ingredient</button>
-                              <button class="btn btn-second" type="button" data-action="mousedown->dish#cancelNewIngredient">Cancel</button>
+                              <button class="btn btn-primary btn-sm" type="button" data-action="mousedown->dish#createIngredient">Add ingredient</button>
+                              <button class="btn btn-second btn-sm" type="button" data-action="mousedown->dish#cancelNewIngredient">Cancel</button>
                             </div>
                           </div>
                         </form>
 
-                        <button class="btn btn-second" data-action="click->dish#showAddIngredient" data-target="dish.addIngredient">Add an ingredient</button>
+                        <button class="btn btn-second btn-sm" data-action="click->dish#showAddIngredient" data-target="dish.addIngredient">Add an ingredient</button>
                       </div>
                     </div>
                   </li>
@@ -240,8 +240,8 @@
                 <div class="input-group">
                   <input type="text" class="input-group--control bold" placeholder="Name this dish..." data-target="dishes.newDishInput">
                   <div class="input-group--button-list">
-                    <button class="btn btn-prime" data-action="click->dishes#createDish">Add dish</button>
-                    <button class="btn btn-second" data-action="click->dishes#cancelNewDishInput">Cancel</button>
+                    <button class="btn btn-primary btn-sm" data-action="click->dishes#createDish">Add dish</button>
+                    <button class="btn btn-second btn-sm" data-action="click->dishes#cancelNewDishInput">Cancel</button>
                   </div>
                 </div>
               </form>
@@ -266,8 +266,8 @@
                             <div class="input-group edit">
                               <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-action="blur->ingredient#cancelIngredientUpdate keyup->ingredient#keyup" data-target="ingredient.ingredientEditInput">
                               <div class="input-group--button-list">
-                                <button class="btn btn-prime" data-action="mousedown->ingredient#update">Edit ingredient</button>
-                                <button class="btn btn-second" type="button" data-action="mousedown->ingredient#cancelIngredientUpdate">Cancel</button>
+                                <button class="btn btn-primary btn-sm" data-action="mousedown->ingredient#update">Edit ingredient</button>
+                                <button class="btn btn-second btn-sm" type="button" data-action="mousedown->ingredient#cancelIngredientUpdate">Cancel</button>
                               </div>
                             </div>
                           </form>
@@ -280,13 +280,13 @@
                         <div class="input-group">
                           <input type="text" class="input-group--control" placeholder="Describe this ingredient..." data-target="dish.newIngredient" data-action="blur->dish#cancelNewIngredient keyup->dish#keyupNewIngredientCancel">
                           <div class="input-group--button-list">
-                            <button class="btn btn-prime" type="button" data-action="mousedown->dish#createIngredient">Add Ingredient</button>
-                            <button class="btn btn-second" type="button" data-action="mousedown->dish#cancelNewIngredient">Cancel</button>
+                            <button class="btn btn-primary btn-sm" type="button" data-action="mousedown->dish#createIngredient">Add Ingredient</button>
+                            <button class="btn btn-second btn-sm" type="button" data-action="mousedown->dish#cancelNewIngredient">Cancel</button>
                           </div>
                         </div>
                       </form>
 
-                      <button class="btn btn-second" data-action="click->dish#showAddIngredient" data-target="dish.addIngredient">Add an ingredient</button>
+                      <button class="btn btn-second btn-sm" data-action="click->dish#showAddIngredient" data-target="dish.addIngredient">Add an ingredient</button>
                     </div>
                   </div>
                 </li>

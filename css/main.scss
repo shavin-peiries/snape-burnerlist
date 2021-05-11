@@ -1,5 +1,5 @@
 // Colors
-$button-prime: #d6d6d6;
+$button-prime: #141414;
 $button-second: #ffffff;
 
 $dark-background: #d6d6d6;
@@ -68,8 +68,9 @@ small,
   padding: 0.375em 1em;
 }
 
-.btn-prime {
+.btn-primary {
   background: $button-prime;
+  border: none;
 }
 
 .btn-second {
