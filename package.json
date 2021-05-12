@@ -1,6 +1,7 @@
 {
   "private": true,
   "dependencies": {
+    "sortablejs": "^1.13.0",
     "stimulus": "^1.0.1",
     "todomvc-app-css": "^2.0.0",
     "todomvc-common": "^1.0.0"

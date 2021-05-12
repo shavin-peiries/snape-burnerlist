@@ -6,6 +6,7 @@ $dark-background: #d6d6d6;
 $light-background: #f4f4f4;
 
 $white: #ffffff;
+$light-blue-accent: #ecf9fd;
 
 // Heights
 $burner-height: 820px;
@@ -73,31 +74,44 @@ small,
   border: none;
 }
 
-.btn-second {
+.btn-secondary {
+  background: $white;
+  color: $button-prime;
   border: 1px solid $dark-background;
+
+  &:hover,
+  &:focus {
+    background: $white;
+    color: $button-prime;
+    border: 1px solid $dark-background;
+  }
 }
 
 .burner-header {
   padding: 1.25em;
 
-  .burner-header--date-time {
-    text-align: right;
-    margin-bottom: 1em;
+  a {
+    color: #b5b5b5;
+    transition: all 200ms;
 
-    a {
-      color: #b5b5b5;
-      transition: all 200ms;
-
-      &:hover{
-        text-decoration: none;
-        color: #333;
-      }
+    &:hover {
+      text-decoration: none;
+      color: #333;
     }
+  }
+
+  .burner-header--left {
+
+  }
+
+  .burner-header--right {
+    text-align: right;
   }
 
   .burner-header--chef {
     text-align: center;
     margin-bottom: 1rem;
+    margin-top: 1rem;
   }
 
   .burner-header--quote {
@@ -108,7 +122,7 @@ small,
     color: #333;
   }
 
-  .burner-header--update{
+  .burner-header--update {
     display: none;
     max-width: 370px;
     margin: 0 auto;
@@ -123,7 +137,6 @@ small,
       display: block;
     }
   }
-
 }
 
 // Burner List Container
@@ -154,6 +167,20 @@ small,
   border-right: 2px solid $light-background;
 }
 
+.secondary-burner {
+  transition: all .2s ease;
+
+  &:hover {
+    &.focusing {
+      opacity: 1;
+    }
+  }
+
+  &.focusing {
+    opacity: .05;
+  }
+}
+
 .urgent-back-burner {
   border-bottom: 2px solid $light-background;
   min-height: calc(#{$burner-height} / 2);
@@ -180,7 +207,6 @@ small,
   }
 }
 
-
 @mixin delete-button {
   opacity: 0;
   position: absolute;
@@ -191,7 +217,7 @@ small,
   font-size: 30px;
   color: $dark-background;
   transition: all 0.2s ease-out;
-  background-color: $white;
+  background-color: transparent;
   border: none;
   outline: none;
   display: flex;
@@ -212,7 +238,34 @@ small,
   opacity: 1;
 }
 
-$dish-padding-left: 0.85em;
+@mixin drag-handle {
+  position: absolute;
+  left: 0.19em;
+  top: 0.33em;
+  height: 1.23em;
+  width: 1.23em;
+  background: url('/img/drag.svg') center center no-repeat;
+  background-size: 1.7rem 0.9rem;
+  cursor: move;
+}
+
+@mixin link {
+  display: inline;
+  opacity: 0;
+  transition: all 0.2s ease-out;
+  position: absolute;
+  margin: 0.195em 0 0 0.3em;
+  opacity: 0;
+  white-space: nowrap;
+  font-size: 0.8em;
+  color: $button-prime;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+$dish-padding-left: 1.875em;
 
 // Dishes List
 .dishes-list {
@@ -227,23 +280,44 @@ $dish-padding-left: 0.85em;
   margin-bottom: 2em;
 
   .dish--title {
+    padding-left: $dish-padding-left;
     margin-bottom: 0.5em;
+    border-radius: 4px;
     position: relative;
 
+    .dish--actions {
+      padding-right: 5em;
+    }
+
+    .drag-handle {
+      @include drag-handle();
+      top: 0.15em;
+    }
+
     label {
-      display: block;
+      display: inline;
       font-size: 1.25rem;
       font-weight: bold;
       line-height: 1.2;
       margin-bottom: 0;
+      word-break: break-word;
     }
 
     .destroy {
       @include delete-button();
+      top: -0.1em;
+    }
+
+    .link {
+      @include link();
     }
 
     &:hover {
       .destroy {
+        @include opacity-visible();
+      }
+
+      .link {
         @include opacity-visible();
       }
     }
@@ -264,6 +338,9 @@ $dish-padding-left: 0.85em;
   }
 
   .dish--body {
+    transition: all .2s ease-out;
+    max-height: auto;
+
     .dish--ingredient-list {
       margin: 0;
       padding: 0;
@@ -274,6 +351,15 @@ $dish-padding-left: 0.85em;
 
         .view {
           padding-left: $dish-padding-left;
+          border-radius: 4px;
+
+          .view-actions {
+            padding-right: 5em;
+          }
+
+          .drag-handle {
+            @include drag-handle();
+          }
 
           .toggle {
             text-align: center;
@@ -306,10 +392,10 @@ $dish-padding-left: 0.85em;
           }
 
           label {
-            padding: 3px 12px 3px 36px;
+            padding: 3px 0px 3px 36px;
             display: block;
             line-height: 1.5;
-            transition: color 0.150ms ease;
+            transition: color 0.15ms ease;
           }
 
           .destroy {
@@ -349,5 +435,20 @@ $dish-padding-left: 0.85em;
     .dish--add-ingredient {
       padding-left: $dish-padding-left;
     }
+  }
+}
+
+.drag-background-class {
+  .dish--title, .view{
+    background: $light-blue-accent;
+  }
+
+  .dish--body{
+    max-height: 0;
+    opacity: 0;
+  }
+
+  .link, .destroy {
+    display: none !important;
   }
 }

@@ -62,7 +62,15 @@ small,
   border: none;
 }
 
-.btn-second {
+.btn-secondary {
+  background: #ffffff;
+  color: #141414;
+  border: 1px solid #d6d6d6;
+}
+
+.btn-secondary:hover, .btn-secondary:focus {
+  background: #ffffff;
+  color: #141414;
   border: 1px solid #d6d6d6;
 }
 
@@ -70,25 +78,25 @@ small,
   padding: 1.25em;
 }
 
-.burner-header .burner-header--date-time {
-  text-align: right;
-  margin-bottom: 1em;
-}
-
-.burner-header .burner-header--date-time a {
+.burner-header a {
   color: #b5b5b5;
   -webkit-transition: all 200ms;
   transition: all 200ms;
 }
 
-.burner-header .burner-header--date-time a:hover {
+.burner-header a:hover {
   text-decoration: none;
   color: #333;
+}
+
+.burner-header .burner-header--right {
+  text-align: right;
 }
 
 .burner-header .burner-header--chef {
   text-align: center;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .burner-header .burner-header--quote {
@@ -145,6 +153,19 @@ small,
   border-right: 2px solid #f4f4f4;
 }
 
+.secondary-burner {
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+
+.secondary-burner:hover.focusing {
+  opacity: 1;
+}
+
+.secondary-burner.focusing {
+  opacity: .05;
+}
+
 .urgent-back-burner {
   border-bottom: 2px solid #f4f4f4;
   min-height: calc(820px / 2);
@@ -180,16 +201,35 @@ small,
 }
 
 .dish .dish--title {
+  padding-left: 1.875em;
   margin-bottom: 0.5em;
+  border-radius: 4px;
   position: relative;
 }
 
+.dish .dish--title .dish--actions {
+  padding-right: 5em;
+}
+
+.dish .dish--title .drag-handle {
+  position: absolute;
+  left: 0.19em;
+  top: 0.33em;
+  height: 1.23em;
+  width: 1.23em;
+  background: url("/img/drag.svg") center center no-repeat;
+  background-size: 1.7rem 0.9rem;
+  cursor: move;
+  top: 0.15em;
+}
+
 .dish .dish--title label {
-  display: block;
+  display: inline;
   font-size: 1.25rem;
   font-weight: bold;
   line-height: 1.2;
   margin-bottom: 0;
+  word-break: break-word;
 }
 
 .dish .dish--title .destroy {
@@ -203,7 +243,7 @@ small,
   color: #d6d6d6;
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-  background-color: #ffffff;
+  background-color: transparent;
   border: none;
   outline: none;
   display: -webkit-box;
@@ -215,6 +255,7 @@ small,
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  top: -0.1em;
 }
 
 .dish .dish--title .destroy:hover {
@@ -226,7 +267,28 @@ small,
   position: absolute;
 }
 
+.dish .dish--title .link {
+  display: inline;
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  position: absolute;
+  margin: 0.195em 0 0 0.3em;
+  opacity: 0;
+  white-space: nowrap;
+  font-size: 0.8em;
+  color: #141414;
+}
+
+.dish .dish--title .link:hover {
+  text-decoration: none;
+}
+
 .dish .dish--title:hover .destroy {
+  opacity: 1;
+}
+
+.dish .dish--title:hover .link {
   opacity: 1;
 }
 
@@ -242,6 +304,12 @@ small,
   display: block;
 }
 
+.dish .dish--body {
+  -webkit-transition: all .2s ease-out;
+  transition: all .2s ease-out;
+  max-height: auto;
+}
+
 .dish .dish--body .dish--ingredient-list {
   margin: 0;
   padding: 0;
@@ -253,7 +321,23 @@ small,
 }
 
 .dish .dish--body .dish--ingredient-list .ingredient .view {
-  padding-left: 0.85em;
+  padding-left: 1.875em;
+  border-radius: 4px;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient .view .view-actions {
+  padding-right: 5em;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient .view .drag-handle {
+  position: absolute;
+  left: 0.19em;
+  top: 0.33em;
+  height: 1.23em;
+  width: 1.23em;
+  background: url("/img/drag.svg") center center no-repeat;
+  background-size: 1.7rem 0.9rem;
+  cursor: move;
 }
 
 .dish .dish--body .dish--ingredient-list .ingredient .view .toggle {
@@ -280,11 +364,11 @@ small,
 }
 
 .dish .dish--body .dish--ingredient-list .ingredient .view label {
-  padding: 3px 12px 3px 36px;
+  padding: 3px 0px 3px 36px;
   display: block;
   line-height: 1.5;
-  -webkit-transition: color 0.150ms ease;
-  transition: color 0.150ms ease;
+  -webkit-transition: color 0.15ms ease;
+  transition: color 0.15ms ease;
 }
 
 .dish .dish--body .dish--ingredient-list .ingredient .view .destroy {
@@ -298,7 +382,7 @@ small,
   color: #d6d6d6;
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-  background-color: #ffffff;
+  background-color: transparent;
   border: none;
   outline: none;
   display: -webkit-box;
@@ -331,7 +415,7 @@ small,
 }
 
 .dish .dish--body .dish--ingredient-list .ingredient.editing {
-  padding-left: 0.85em;
+  padding-left: 1.875em;
 }
 
 .dish .dish--body .dish--ingredient-list .ingredient.editing .view {
@@ -347,6 +431,19 @@ small,
 }
 
 .dish .dish--body .dish--add-ingredient {
-  padding-left: 0.85em;
+  padding-left: 1.875em;
+}
+
+.drag-background-class .dish--title, .drag-background-class .view {
+  background: #ecf9fd;
+}
+
+.drag-background-class .dish--body {
+  max-height: 0;
+  opacity: 0;
+}
+
+.drag-background-class .link, .drag-background-class .destroy {
+  display: none !important;
 }
 /*# sourceMappingURL=main.css.map */

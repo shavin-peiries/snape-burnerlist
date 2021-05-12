@@ -1,13 +1,15 @@
 application.register('burnerlist', class extends Stimulus.Controller {
 	static get targets() {
-    return ['']
+    return ['focus', 'focusText']
 	}
 
 	connect() {
     this.load();
+    this.loadFocus();
 	}
 
 	load() {
+
     var listItems = this.loadFromLocalStorage();
 
     if(listItems === null) {
@@ -30,6 +32,39 @@ application.register('burnerlist', class extends Stimulus.Controller {
         _this.appendDishToDocument('Other Burner', dish);
       })
     }
+  }
+
+  saveFocusState(focusState) {
+    localStorage.setItem('focusState', focusState);
+  }
+
+  loadFocus() {
+    if(localStorage.getItem('focusState')) {
+      var focusState = localStorage.getItem('focusState');
+
+      if (focusState == 'true') {
+        this.focusTarget.classList.add('focusing');
+        this.focusTextTarget.textContent = 'Turn off Focus Mode';
+      } else if (focusState == 'false') {
+        this.focusTarget.classList.remove('focusing');
+        this.focusTextTarget.textContent = 'Turn on Focus Mode';
+      }
+    } else {
+      this.focusTextTarget.textContent = 'Turn on Focus Mode';
+    }
+  }
+
+  toggleFocus() {
+    if (this.focusTextTarget.textContent == 'Turn on Focus Mode') {
+      this.focusTarget.classList.add('focusing');
+      this.saveFocusState(true);
+      this.focusTextTarget.textContent = 'Turn off Focus Mode';
+    } else {
+      this.focusTarget.classList.remove('focusing');
+      this.saveFocusState(false);
+      this.focusTextTarget.textContent = 'Turn on Focus Mode';
+    }
+
   }
 
   loadFromLocalStorage() {
@@ -88,5 +123,4 @@ application.register('burnerlist', class extends Stimulus.Controller {
       })
     }
   }
-
 })
