@@ -429,7 +429,7 @@ small,
   line-height: 1.5;
   -webkit-transition: color 0.15ms ease;
   transition: color 0.15ms ease;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .dish .dish--body .dish--ingredient-list .ingredient .view .destroy {

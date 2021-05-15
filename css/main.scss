@@ -431,7 +431,7 @@ $dish-padding-left: 1.875em;
             display: block;
             line-height: 1.5;
             transition: color 0.15ms ease;
-            word-break: break-all;
+            word-break: break-word;
           }
 
           .destroy {
