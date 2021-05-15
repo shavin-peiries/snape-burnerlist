@@ -49,8 +49,17 @@ application.register('ingredient', class extends Stimulus.Controller {
 	}
 
 	destroy() {
-		this.element.parentNode.removeChild(this.element);
-		this.change();
+		// Thhere is the margin bottom because offsetHeight doesn't capture it
+		this.element.style.height = this.element.offsetHeight + 8 + "px";
+
+		this.element.classList.remove('new-item');
+		this.element.classList.add('remove-item');
+
+		setTimeout(() => {
+			this.element.parentNode.removeChild(this.element);
+			this.change();
+		}, 400);
+
 	}
 
 	change() {

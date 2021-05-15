@@ -126,6 +126,7 @@ application.register('dish', class extends Stimulus.Controller {
 			ingredient.querySelector('li').setAttribute('data-completed', '')
     }
 
+		ingredient.querySelector('li').classList.add('new-item');
 		this.ingredientListTarget.appendChild(ingredient);
 	}
 

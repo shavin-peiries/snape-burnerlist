@@ -177,6 +177,11 @@ small,
   border-radius: 4px;
   padding: 0.9375em;
   margin-bottom: 1.875em;
+  opacity: 0;
+  -webkit-transform: translateY(30px);
+          transform: translateY(30px);
+  -webkit-animation: fadeIn .2s ease-out forwards;
+          animation: fadeIn .2s ease-out forwards;
 }
 
 .input-group--control {
@@ -255,6 +260,7 @@ small,
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  background: #ffffff;
   top: -0.1em;
 }
 
@@ -304,9 +310,47 @@ small,
   display: block;
 }
 
+@-webkit-keyframes fadeIn {
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes removeHeight {
+  to {
+    height: 0;
+  }
+}
+
+@keyframes removeHeight {
+  to {
+    height: 0;
+  }
+}
+
 .dish .dish--body {
-  -webkit-transition: all .2s ease-out;
-  transition: all .2s ease-out;
   max-height: auto;
 }
 
@@ -320,9 +364,24 @@ small,
   position: relative;
 }
 
+.dish .dish--body .dish--ingredient-list .ingredient.new-item {
+  opacity: 0;
+  -webkit-transform: translateY(30px);
+          transform: translateY(30px);
+  -webkit-animation: fadeIn .2s ease-out forwards;
+          animation: fadeIn .2s ease-out forwards;
+}
+
+.dish .dish--body .dish--ingredient-list .ingredient.remove-item {
+  opacity: 1;
+  -webkit-animation: fadeOut .2s forwards, removeHeight .2s .2s forwards;
+          animation: fadeOut .2s forwards, removeHeight .2s .2s forwards;
+}
+
 .dish .dish--body .dish--ingredient-list .ingredient .view {
   padding-left: 1.875em;
   border-radius: 4px;
+  margin-bottom: 8px;
 }
 
 .dish .dish--body .dish--ingredient-list .ingredient .view .view-actions {
@@ -364,11 +423,13 @@ small,
 }
 
 .dish .dish--body .dish--ingredient-list .ingredient .view label {
+  margin-bottom: 0;
   padding: 3px 0px 3px 36px;
   display: block;
   line-height: 1.5;
   -webkit-transition: color 0.15ms ease;
   transition: color 0.15ms ease;
+  word-break: break-all;
 }
 
 .dish .dish--body .dish--ingredient-list .ingredient .view .destroy {
@@ -394,6 +455,7 @@ small,
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  background: #ffffff;
 }
 
 .dish .dish--body .dish--ingredient-list .ingredient .view .destroy:hover {
